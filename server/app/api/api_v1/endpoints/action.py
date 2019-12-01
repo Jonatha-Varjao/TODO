@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app import crud
 from app.api.utils.db import get_db
 from app.db_models.models import Action
-from app.schema.action import ActionCreate, ActionInDB
+from app.schema.action import ActionCreate, ActionInDB, ActionUpdate
 
 router = APIRouter()
 
@@ -19,12 +19,22 @@ def delete_action(
     *,
     id: str
 ) -> ActionInDB :
-    pass
+    return crud.action.delete_action(db, action_id=id)
 
 @router.put('/{id}', response_model=ActionInDB)
 def update_action(
     db: Session = Depends(get_db),
     *,
-    id: str
+    id: str,
+    action_in: ActionUpdate
 ) -> ActionInDB :
-    pass
+    return crud.action.update_action(db, action_on=crud.action.get_action(db, action_id=id), action_in=action_in)
+
+
+@router.post('/{id}', response_model=ActionInDB)
+def complete_action(
+    db: Session = Depends(get_db),
+    *,
+    id: str 
+) -> ActionInDB :
+    return crud.action.complete_action(db, action_id=id)

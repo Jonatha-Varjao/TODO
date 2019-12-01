@@ -63,12 +63,12 @@ def complete_task(
     task = crud.task.complete_task(db, id=id)
     return task
 
-@router.post('/{id}/actions/', response_model=TaskInDB)
+@router.post('/{id}/actions/', response_model=ActionInDB)
 def create_action(
     db: Session = Depends(get_db),
     *,
     id: str,
     action_in: ActionCreate
 ) -> ActionInDB :
-    action = crud.action.create_action()
+    action = crud.action.create_action(db, action_in=action_in, task_id=id)
     return action

@@ -5,7 +5,7 @@ from app.schema.base import Base
 
 class ActionBase(Base):
     name: str
-    task_id: UUID
+    task_id: Optional[UUID]
     is_completed: Optional[bool]
 
 class ActionInDB(ActionBase):

@@ -1,17 +1,17 @@
 """empty message
 
-Revision ID: b18fcc3dc19e
+Revision ID: 90d0f2a0337a
 Revises: 
-Create Date: 2019-11-29 03:07:14.807285
+Create Date: 2019-12-01 05:21:25.832767
 
 """
 from alembic import op
 import sqlalchemy as sa
 import sqlalchemy_utils
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = 'b18fcc3dc19e'
+revision = '90d0f2a0337a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,16 +22,18 @@ def upgrade():
     op.create_table('tasks',
     sa.Column('created', sa.DateTime(), nullable=False),
     sa.Column('updated', sa.DateTime(), nullable=False),
-    sa.Column('id', sa.String(length=36), nullable=False),
+    sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('name', sa.String(length=25), nullable=True),
+    sa.Column('is_completed', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('actions',
     sa.Column('created', sa.DateTime(), nullable=False),
     sa.Column('updated', sa.DateTime(), nullable=False),
-    sa.Column('id', sa.String(length=36), nullable=False),
+    sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('name', sa.String(length=25), nullable=True),
-    sa.Column('task_id', sa.String(length=36), nullable=True),
+    sa.Column('task_id', postgresql.UUID(as_uuid=True), nullable=True),
+    sa.Column('is_completed', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

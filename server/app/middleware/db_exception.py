@@ -14,7 +14,8 @@ class DBException(BaseHTTPMiddleware):
             request.state.db.close()
             return response
         except SQLAlchemyError as error:
-            error_json = str(error.__dict__['orig']).split('Key ')[-1]
+            print(error)
+            error_json = str(error.__dict__['orig'])
             return Response(
                 json.dumps(
                     {"messageCode": codes['db'], "title": "Erro no Banco de Dados", "error": error_json}),

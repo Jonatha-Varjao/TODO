@@ -12,6 +12,7 @@ sqlalchemy = "*"
 sqlalchemy-utils = "*"
 alembic = "*"
 uvicorn = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"

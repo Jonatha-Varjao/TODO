@@ -1,13 +1,16 @@
 from uuid import UUID
+from typing import List, Optional
 
 from app.schema.base import Base
 
 class ActionBase(Base):
     name: str
-    taks_id: UUID
+    task_id: UUID
+    is_completed: Optional[bool]
 
 class ActionInDB(ActionBase):
     id: UUID
+    
 
 class ActionCreate(ActionBase):
     pass

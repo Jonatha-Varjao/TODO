@@ -3,20 +3,27 @@ from typing import List, Optional
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from server.app.db_models.models import Task, Action
-from server.app.schema.task import TaskCreate, TaskInDB, TaskUpdate
+from app.db_models.models import Task, Action
+from app.schema.task import TaskCreate, TaskInDB, TaskUpdate
 
 def get_tasks(
-        db: Session,
-        *,
-        skip: int = 0,
-        limit: int = 0,
-        is_completed: bool = False
+    db: Session,
+    *,
+    skip: int = 0,
+    limit: int = 0,
+    is_completed: bool = False
 ) -> List[Optional[Task]]:
-    task = db.query(Task).filter(Task.is_completed == is_completed)\
-        .order_by(Task.name).offset(skip).limit(limit)
-    task.actions
-    return task
+    tasks = db.query(Task).filter(Task.is_completed == is_completed)\
+        .order_by(Task.name).offset(skip).limit(limit).all()
+    [ task.actions for task in tasks]
+    return tasks
+
+def get_task(
+    db: Session,
+    *,
+    id: str
+) -> Task :
+    return db.query(Task).filter(Task.id==id).first()
 
 def create_task(
     db: Session,

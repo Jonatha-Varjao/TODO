@@ -1,8 +1,0 @@
-{
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "Todo list webapp",
-  "main": "index.js",
-  "author": "Jonatha Varjao",
-  "license": "MIT"
-}

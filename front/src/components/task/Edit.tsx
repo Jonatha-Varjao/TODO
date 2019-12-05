@@ -27,7 +27,7 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
     }
 
     public componentDidMount(): void {
-        axios.get(`http://localhost:5000/customers/${this.state.id}`).then(data => {
+        axios.get(`http://localhost:8080/api/v1/tasks/${this.state.id}`).then(data => {
             this.setState({ task: data.data });
         })
     }
@@ -35,7 +35,7 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
     private processFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         this.setState({ loading: true });
-        axios.patch(`http://localhost:5000/customers/${this.state.id}`, this.state.values).then(data => {
+        axios.patch(`http://localhost:8080/api/v1/tasks/${this.state.id}`, this.state.values).then(data => {
             this.setState({ submitSuccess: true, loading: false })
             setTimeout(() => {
                 this.props.history.push('/');
@@ -57,15 +57,15 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
             <div className="App">
                 {this.state.task &&
                     <div>
-                        < h1 > Customer List Management App</h1>
+                        < h1 > Task List Management App</h1>
                         <p> Built with React.js and TypeScript </p>
 
                         <div>
                             <div className={"col-md-12 form-wrapper"}>
-                                <h2> Edit Customer </h2>
+                                <h2> Edit Task </h2>
                                 {submitSuccess && (
                                     <div className="alert alert-info" role="alert">
-                                        Customer's details has been edited successfully </div>
+                                        Tasks's details has been edited successfully </div>
                                 )}
                                 <form id={"create-post-form"} onSubmit={this.processFormSubmission} noValidate={true}>
                                     <div className="form-group col-md-12">
@@ -76,10 +76,10 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
                                         <label htmlFor="last_name"> Is Completed? </label>
                                         <input type="checkbox" id="is_completed" defaultValue={this.state.task.is_completed} onChange={(e) => this.handleInputChanges(e)} name="is_completed" className="form-control" placeholder="" />
                                     </div>
-                                    
-                                    <div className="form-group col-md-4 pull-right">
+
+                                    <div className="form-group col-md">
                                         <button className="btn btn-success" type="submit">
-                                            Edit Customer </button>
+                                            Edit Task </button>
                                         {loading &&
                                             <span className="fa fa-circle-o-notch fa-spin" />
                                         }

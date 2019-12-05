@@ -12,12 +12,13 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
         this.state = { tasks: [] }
     }
     public componentDidMount(): void {
-        axios.get(`http://localhost:8080/api/v1/task/`).then(data => {
+        axios.get(`http://localhost:8080/api/v1/tasks/`).then(data => {
             this.setState({ tasks: data.data })
         })
     }
-    public deleteCustomer(id: number) {
-        axios.delete(`http://localhost:8080/api/v1/task/${id}`).then(data => {
+
+    public deleteTask(id: number) {
+        axios.delete(`http://localhost:8080/api/v1/tasks/${id}`).then(data => {
             const index = this.state.tasks.findIndex(tasks => tasks.id === id);
             this.state.tasks.splice(index, 1);
             this.props.history.push('/');
@@ -30,7 +31,7 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
             <div>
                 {tasks.length === 0 && (
                     <div className="text-center">
-                        <h2>No customer found at the moment</h2>
+                        <h2>No tasks found at the moment</h2>
                     </div>
                 )}
                 <div className="container">
@@ -54,7 +55,7 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="btn-group" style={{ marginBottom: "20px" }}>
                                                     <Link to={`edit/${tasks.id}`} className="btn btn-sm btn-outline-secondary">Edit Task </Link>
-                                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => this.deleteCustomer(tasks.id)}>Delete Customer</button>
+                                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => this.deleteTask(tasks.id)}>Delete Task</button>
                                                 </div>
                                             </div>
                                         </td>

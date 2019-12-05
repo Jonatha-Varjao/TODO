@@ -35,37 +35,46 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
                     </div>
                 )}
                 <div className="container">
-                    <div className="row">
-                        <table className="table table-bordered">
+
+                    {tasks && tasks.map(tasks =>
+
+
+                        < div className="card" style={{ marginBottom: "20px" }} >
+                            <div className="card-header">
+                                <h5 className="card-title">{tasks.name}</h5>
+                            </div>
+
+                            <div className="card-body" key={tasks.id}>
+                                <p className="card-text">{tasks.is_completed}</p>
+                                <p className="card-text"> AAAAAAAA {tasks.actions}</p>
+
+
+
+                                <div>
+                                    <div className="btn-group" style={{ marginBottom: "2%" }}>
+                                        <Link to={`edit/${tasks.id}`} className="card-link btn btn-sm btn-outline-secondary" style={{ background: "#FBD786", color: "black", marginRight: "2%" }} >Edit Task </Link>
+                                        <button className="card-link btn btn-sm btn-outline-secondary" style={{ background: "#f7797d", color: "black", marginRight: "2%" }} onClick={() => this.deleteTask(tasks.id)}>Delete Task</button>
+                                        <button className="card-link btn btn-sm btn-outline-secondary" style={{ background: "#C6FFDD", color: "black" }} onClick={() => this.deleteTask(tasks.id)}>Complete Task</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* <table className="table table-bordered">
                             <thead className="thead-light">
                                 <tr>
                                     <th scope="col">name</th>
                                     <th scope="col">is_completed</th>
-                                    {/* <th scope="col">Sub Tasks</th> */}
+                                    <th scope="col">Sub Tasks</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {tasks && tasks.map(tasks =>
-                                    <tr key={tasks.id}>
-                                        <td>{tasks.name}</td>
-                                        <td>{tasks.is_completed}</td>
-                                        {/* <td>{tasks.actions}</td> */}
-                                        <td>
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                <div className="btn-group" style={{ marginBottom: "20px" }}>
-                                                    <Link to={`edit/${tasks.id}`} className="btn btn-sm btn-outline-secondary" style={{background: "yellow", color: "black"}} >Edit Task </Link>
-                                                    <button className="btn btn-sm btn-outline-secondary" style={{background: "red", color: "black"}} onClick={() => this.deleteTask(tasks.id)}>Delete Task</button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                            
+                        </table> */}
                 </div>
-            </div>
+            </div >
+
         )
     }
 }

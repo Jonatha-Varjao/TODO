@@ -4,9 +4,9 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 export interface IValues {
     name: string,
-    is_completed: boolean,
-
+    is_completed: boolean
 }
+
 export interface IFormState {
     [key: string]: any;
     values: IValues[];
@@ -15,6 +15,7 @@ export interface IFormState {
 }
 
 class TaskCreate extends React.Component<RouteComponentProps, IFormState> {
+
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {

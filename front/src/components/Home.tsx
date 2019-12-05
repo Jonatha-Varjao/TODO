@@ -54,8 +54,8 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
                                         <td>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="btn-group" style={{ marginBottom: "20px" }}>
-                                                    <Link to={`edit/${tasks.id}`} className="btn btn-sm btn-outline-secondary">Edit Task </Link>
-                                                    <button className="btn btn-sm btn-outline-secondary" onClick={() => this.deleteTask(tasks.id)}>Delete Task</button>
+                                                    <Link to={`edit/${tasks.id}`} className="btn btn-sm btn-outline-secondary" style={{background: "yellow", color: "black"}} >Edit Task </Link>
+                                                    <button className="btn btn-sm btn-outline-secondary" style={{background: "red", color: "black"}} onClick={() => this.deleteTask(tasks.id)}>Delete Task</button>
                                                 </div>
                                             </div>
                                         </td>

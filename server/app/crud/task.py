@@ -21,9 +21,9 @@ def get_tasks(
 def get_task(
     db: Session,
     *,
-    id: str
+    task_id: str
 ) -> Task :
-    return db.query(Task).filter(Task.id==id).first()
+    return db.query(Task).filter(Task.id==task_id).first()
 
 def create_task(
     db: Session,

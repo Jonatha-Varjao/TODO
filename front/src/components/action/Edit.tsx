@@ -27,7 +27,7 @@ class EditAction extends React.Component<RouteComponentProps<any>, IFormState> {
     }
 
     public componentDidMount(): void {
-        axios.get(`http://localhost:8080/api/v1/actions/${this.state.id}`).then(data => {
+        axios.get(`http://3.136.154.31/api/v1/actions/${this.state.id}`).then(data => {
             this.setState({ action: data.data });
         })
     }
@@ -40,7 +40,7 @@ class EditAction extends React.Component<RouteComponentProps<any>, IFormState> {
         console.log(this.state);
 
         if (this.state.values.length === 0) {
-            axios.put(`http://localhost:8080/api/v1/actions/${this.state.id}`, this.state.action).then(data => {
+            axios.put(`http://3.136.154.31/api/v1/actions/${this.state.id}`, this.state.action).then(data => {
                 this.setState({ submitSuccess: true, loading: false })
                 setTimeout(() => {
                     this.props.history.push('/');
@@ -48,7 +48,7 @@ class EditAction extends React.Component<RouteComponentProps<any>, IFormState> {
             })
         }
 
-        axios.put(`http://localhost:8080/api/v1/actions/${this.state.id}`, this.state.values).then(data => {
+        axios.put(`http://3.136.154.31/api/v1/actions/${this.state.id}`, this.state.values).then(data => {
             this.setState({ submitSuccess: true, loading: false })
             setTimeout(() => {
                 this.props.history.push('/');

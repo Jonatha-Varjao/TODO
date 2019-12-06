@@ -13,16 +13,16 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
     this.state = { tasks: [], completed_tasks: [] }
   }
   public componentDidMount(): void {
-    axios.get(`http://localhost:8080/api/v1/tasks/?is_completed=false`).then(data => {
+    axios.get(`http://3.136.154.31/api/v1/tasks/?is_completed=false`).then(data => {
       this.setState({ tasks: data.data })
     })
-    axios.get(`http://localhost:8080/api/v1/tasks/?is_completed=true`).then(data => {
+    axios.get(`http://3.136.154.31/api/v1/tasks/?is_completed=true`).then(data => {
       this.setState({ completed_tasks: data.data })
     })
   }
 
   public deleteTask(id: string) {
-    axios.delete(`http://localhost:8080/api/v1/tasks/${id}`).then(data => {
+    axios.delete(`http://3.136.154.31/api/v1/tasks/${id}`).then(data => {
       const index = this.state.tasks.findIndex(tasks => tasks.id === id);
       this.state.tasks.splice(index, 1);
       this.props.history.push('/');
@@ -30,20 +30,20 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
   }
 
   public deleteAction(id: string) {
-    axios.delete(`http://localhost:8080/api/v1/actions/${id}`).then(data => {
+    axios.delete(`http://3.136.154.31/api/v1/actions/${id}`).then(data => {
       this.componentDidMount();
     })
 
   }
 
   public completeAction(id: string) {
-    axios.post(`http://localhost:8080/api/v1/actions/${id}`).then(data => {
+    axios.post(`http://3.136.154.31/api/v1/actions/${id}`).then(data => {
       this.componentDidMount();
     })
   }
 
   public completeTask(id: string) {
-    axios.post(`http://localhost:8080/api/v1/tasks/${id}`).then(data => {
+    axios.post(`http://3.136.154.31/api/v1/tasks/${id}`).then(data => {
       this.componentDidMount();
     })
 

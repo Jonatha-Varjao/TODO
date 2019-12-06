@@ -11,6 +11,15 @@ Modeling was preety straigth foward, and task can cointan multiple actions, whic
 
 ![Modeling](docs/class_diagram.png)
 
-## Frontend [WIP]
+## Frontend
 
-Frontend is currently under construction using React
+Run locally, it will point to the hosted backend in cloud
+
+```
+git clone https://github.com/Jonatha-Varjao/TODO.git
+cd front 
+yarn 
+yarn start
+```
+
+

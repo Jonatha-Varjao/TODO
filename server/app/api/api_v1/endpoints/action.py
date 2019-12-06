@@ -38,3 +38,11 @@ def complete_action(
     id: str 
 ) -> ActionInDB :
     return crud.action.complete_action(db, action_id=id)
+
+@router.get('/{id}', response_model=ActionInDB)
+def get_action(
+    db: Session = Depends(get_db),
+    *,
+    id: str
+) -> ActionInDB :
+    return crud.action.get_action(db, action_id=id)

@@ -18,9 +18,15 @@ def get_tasks(
     limit: int = 100,
     is_completed: bool = False
 ) -> List[Optional[TaskInDB]] :
-    task = crud.task.get_tasks(db, skip=skip, limit=limit, is_completed=is_completed)
-    print(task)
-    return task
+    return crud.task.get_tasks(db, skip=skip, limit=limit, is_completed=is_completed)
+
+@router.get('/{id}', response_model=TaskInDB)
+def get_task(
+    db: Session = Depends(get_db),
+    *,
+    id: str
+) -> TaskInDB :
+    return crud.task.get_task(db, task_id=id)
 
 @router.post('/', response_model=TaskInDB)
 def create_task(
@@ -28,8 +34,7 @@ def create_task(
     *,
     task_in: TaskCreate
 ) -> TaskInDB :
-    task = crud.task.create_task(db, task_in=task_in)
-    return task
+    return crud.task.create_task(db, task_in=task_in)
 
 @router.put('/{id}', response_model=TaskInDB)
 def update_task(
@@ -38,12 +43,11 @@ def update_task(
     id: str,
     task_in: TaskCreate
 ) -> TaskInDB :
-    task = crud.task.update_task(
+    return crud.task.update_task(
         db,
         task_on = crud.task.get_task(db,id=id),
         task_in=task_in
     )
-    return task
 
 @router.delete('/{id}', response_model=TaskInDB)
 def delete_task(
@@ -51,8 +55,7 @@ def delete_task(
     *,
     id: str
 ) -> TaskInDB:
-    task = crud.task.delete_task(db, id=id)
-    return task
+    return crud.task.delete_task(db, id=id)
 
 @router.post('/{id}', response_model=TaskInDB)
 def complete_task(
@@ -60,8 +63,7 @@ def complete_task(
     *,
     id: str
 ) -> TaskInDB:
-    task = crud.task.complete_task(db, id=id)
-    return task
+    return crud.task.complete_task(db, id=id)
 
 @router.post('/{id}/actions/', response_model=ActionInDB)
 def create_action(
@@ -70,5 +72,4 @@ def create_action(
     id: str,
     action_in: ActionCreate
 ) -> ActionInDB :
-    action = crud.action.create_action(db, action_in=action_in, task_id=id)
-    return action
+    return crud.action.create_action(db, action_in=action_in, task_id=id)

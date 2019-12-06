@@ -4,6 +4,8 @@ import { Switch, Route, withRouter, RouteComponentProps, Link } from 'react-rout
 import Home from './components/Home';
 import TaskCreate from './components/task/Create';
 import EditTask from './components/task/Edit';
+import ActionCreate from './components/action/Create';
+import EditAction from './components/action/Edit';
 
 class App extends React.Component<RouteComponentProps<any>> {
   public render() {
@@ -15,14 +17,16 @@ class App extends React.Component<RouteComponentProps<any>> {
               <Link to={'/'}> Home </Link>
             </li>
             <li>
-              <Link to={'/create'}> Create Customer </Link>
+              <Link to={'/tasks'}> Create Task </Link>
             </li>
           </ul>
         </nav>
         <Switch>
           <Route path={'/'} exact component={Home} />
-          <Route path={'/create'} exact component={TaskCreate} />
-          <Route path={'/edit/:id'} exact component={EditTask} />
+          <Route path={'/tasks'} exact component={TaskCreate} />
+          <Route path={'/tasks/:id/actions'} exact component={ActionCreate} />
+          <Route path={'/tasks/:id'} exact component={EditTask} />
+          <Route path={'/actions/:id'} exact component={EditAction} />
         </Switch>
       </div>
     );

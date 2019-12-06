@@ -40,7 +40,7 @@ class ActionCreate extends React.Component<RouteComponentProps, IFormState> {
         }
         
         this.setState({ submitSuccess: true, values: [...this.state.values, formData], loading: false });
-        axios.post(`http://localhost:8080/api/v1/tasks/${formData.task_id}/actions`, formData).then(data => [
+        axios.post(`http://3.136.154.31/api/v1/tasks/${formData.task_id}/actions`, formData).then(data => [
             setTimeout(() => {
                 this.props.history.push('/');
             }, 200)

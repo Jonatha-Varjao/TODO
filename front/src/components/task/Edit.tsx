@@ -27,7 +27,7 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
     }
 
     public componentDidMount(): void {
-        axios.get(`http://localhost:8080/api/v1/tasks/${this.state.id}`).then(data => {
+        axios.get(`http://3.136.154.31/api/v1/tasks/${this.state.id}`).then(data => {
             this.setState({ task: data.data });
         })
     }
@@ -35,7 +35,7 @@ class EditTask extends React.Component<RouteComponentProps<any>, IFormState> {
     private processFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         this.setState({ loading: true });
-        axios.put(`http://localhost:8080/api/v1/tasks/${this.state.id}`, this.state.values).then(data => {
+        axios.put(`http://3.136.154.31/api/v1/tasks/${this.state.id}`, this.state.values).then(data => {
             this.setState({ submitSuccess: true, loading: false })
             setTimeout(() => {
                 this.props.history.push('/');

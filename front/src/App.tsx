@@ -14,9 +14,6 @@ class App extends React.Component<RouteComponentProps<any>> {
         <nav>
           <ul>
             <li>
-              <Link to={'/'}> Home </Link>
-            </li>
-            <li>
               <Link to={'/tasks'}> Create Task </Link>
             </li>
           </ul>

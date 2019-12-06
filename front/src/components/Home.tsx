@@ -30,55 +30,86 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
   }
 
   public deleteAction(id: string) {
+    axios.delete(`http://localhost:8080/api/v1/actions/${id}`).then(data => {
+      this.componentDidMount();
+    })
 
   }
 
   public completeAction(id: string) {
-
+    axios.post(`http://localhost:8080/api/v1/actions/${id}`).then(data => {
+      this.componentDidMount();
+    })
   }
 
   public completeTask(id: string) {
     axios.post(`http://localhost:8080/api/v1/tasks/${id}`).then(data => {
-      this.props.history.push('/');
+      this.componentDidMount();
     })
-  }
 
+  }
 
   public render() {
     const tasks = this.state.tasks;
     const completed_tasks = this.state.completed_tasks;
-
+    const ref = this
     return (
       <div>
-        {(tasks.length === 0 || completed_tasks.length === 0) && (
-          <div className="text-center">
-            <h2>No tasks found at the moment</h2>
-          </div>
-        )}
         <div className="container">
           <div className="row">
             {tasks && tasks.map(tasks =>
               <div className="col-sm-6" >
                 < div className="card" style={{ marginBottom: "20px", marginTop: "20px" }} >
-                  {tasks.is_completed &&
-                    <div className="card-header">
-                      <h5 className="card-title" style={{ color: "green" }} >Task: {tasks.name}</h5>
-                    </div>
-                  }
-
                   <div className="card-header">
-                    <h5 className="card-title" style={{ color: "red" }} >Task: {tasks.name}</h5>
+                    {
+                      tasks.is_completed
+                        ? <h5 className="card-title" style={{ color: "green" }} >Task: {tasks.name}</h5>
+                        : <h5 className="card-title" style={{ color: "red" }} >Task: {tasks.name}</h5>
+                    }
                   </div>
 
-                  <div className="card-body" key={tasks.id}>
+                  <div className="card-body">
                     <p className="card-text">{tasks.is_completed}</p>
 
                     {tasks.actions.map(function (actions: any) {
 
                       return (
-                        <ul className="list-group" key={actions.id}>
-                          <li className="list-group-item" >{actions.name}</li>
-                        </ul>
+                        <div className="list-group">
+                          Task ID: {tasks.id}
+
+                          {
+                            actions.is_completed
+                              ? <li className="list-group-item clearfix" key={actions.id} style={{ color: "green" }}>
+                                {actions.name}
+                                <span className="pull-right">
+                                  <span className="btn btn-xs btn-default" >
+                                    <Link to={`actions/${actions.id}`} className="fa fa-pencil" style={{ color: "#FBD786" }} aria-hidden="true"></Link>
+                                  </span>
+                                  <span className="btn btn-xs btn-default" >
+                                    <span className="fa fa-trash" style={{ color: "#F7797D" }} aria-hidden="true" onClick={() => ref.deleteAction(actions.id)} > </span>
+                                  </span>
+                                  <span className="btn btn-xs btn-default" >
+                                    <span className="fa fa-times" style={{ color: "#C6FE2E" }} aria-hidden="true" onClick={() => ref.completeAction(actions.id)} > </span>
+                                  </span>
+                                </span>
+                              </li>
+                              : <li className="list-group-item clearfix" key={actions.id} style={{ color: "red" }} >{actions.name}
+                                <span className="pull-right">
+                                  <span className="btn btn-xs btn-default">
+                                    <Link to={`actions/${actions.id}`} className="fa fa-pencil" style={{ color: "#FBD786" }} aria-hidden="true"></Link>
+                                  </span>
+                                  <span className="btn btn-xs btn-default">
+                                    <span className="fa fa-trash" style={{ color: "#F7797D" }} aria-hidden="true" onClick={() => ref.deleteAction(actions.id)} > </span>
+                                  </span>
+                                  <span className="btn btn-xs btn-default">
+                                    <span className="fa fa-check" style={{ color: "#C6FE2E" }} aria-hidden="true" onClick={() => ref.completeAction(actions.id)} > </span>
+                                  </span>
+                                </span>
+                              </li>
+                          }
+
+
+                        </div>
                       );
                     })}
 
@@ -106,7 +137,7 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
 
                   </div>
 
-                  <div className="card-body" key={tasks.id}>
+                  <div className="card-body">
                     <p className="card-text">{tasks.is_completed}</p>
 
                     {tasks.actions.map(function (actions: any) {
@@ -119,20 +150,27 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
                                 {actions.name}
                                 <span className="pull-right">
                                   <span className="btn btn-xs btn-default" >
-                                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                                    <Link to={`actions/${actions.id}`} className="fa fa-pencil" style={{ color: "#FBD786" }} aria-hidden="true"></Link>
                                   </span>
                                   <span className="btn btn-xs btn-default" >
-                                    <i className="fa fa-trash" aria-hidden="true"></i>
+                                    <Link to={`actions/${actions.id}`} className="fa fa-trash" style={{ color: "#F7797D" }} aria-hidden="true"></Link>
+                                  </span>
+                                  <span className="btn btn-xs btn-default" >
+                                    <span className="fa fa-times" style={{ color: "#00AAFF" }} aria-hidden="true" onClick={() => ref.completeAction(actions.id)}></span>
                                   </span>
                                 </span>
                               </li>
+
                               : <li className="list-group-item clearfix" key={actions.id} style={{ color: "red" }} >{actions.name}
                                 <span className="pull-right">
                                   <span className="btn btn-xs btn-default">
-                                    <Link to={`actions/${actions.id}`} className="fa fa-pencil" style={{ color: "#FBD786" }}  aria-hidden="true"></Link>
+                                    <Link to={`actions/${actions.id}`} className="fa fa-pencil" style={{ color: "#FBD786" }} aria-hidden="true"></Link>
                                   </span>
                                   <span className="btn btn-xs btn-default">
-                                    <Link to={`actions/${actions.id}`} className="fa fa-trash" style={{ color: "#F7797D" }}  aria-hidden="true"></Link>
+                                  <span className="fa fa-trash" style={{ color: "#F7797D" }} aria-hidden="true" onClick={() => ref.deleteAction(actions.id)} > </span>
+                                  </span>
+                                  <span className="btn btn-xs btn-default" >
+                                    <span className="fa fa-check" style={{ color: "#C6FE2E" }} aria-hidden="true" onClick={() => ref.completeAction(actions.id)} > </span>
                                   </span>
                                 </span>
                               </li>

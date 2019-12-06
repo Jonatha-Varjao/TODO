@@ -60,11 +60,7 @@ class ActionCreate extends React.Component<RouteComponentProps, IFormState> {
                 <div className={"col-md-12 form-wrapper"}>
                     <h2> Create Action </h2>
 
-                    {submitSuccess && (
-                        <div className="alert alert-info" role="alert">
-                            The form was successfully submitted!
-                            </div>
-                    )}
+                    
                     <form id={"create-post-form"} onSubmit={this.processFormSubmission} noValidate={true}>
                         <div className="row">
                             <div className="form-group col">

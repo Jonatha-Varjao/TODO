@@ -15,7 +15,7 @@ class Task(Base, Timestamp):
     name = Column(String(32))
     is_completed = Column(Boolean, unique=False, default=False)
 
-    actions = relationship("Action", back_populates="task", cascade="all, delete, delete-orphan")
+    actions = relationship("Action", back_populates="task", order_by="Action.name", cascade="all, delete, delete-orphan")
 
 class Action(Base, Timestamp):
     __tablename__ = 'actions'
